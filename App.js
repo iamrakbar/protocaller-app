@@ -20,18 +20,29 @@ import AgoraUIKit from 'agora-rn-uikit';
 const App = () => {
   const [videoCall, setVideoCall] = useState(true);
   const [token, setToken] = useState('');
-  const [callbacks] = useState({
-    EndCall: () => setVideoCall(false),
-  });
 
   const rtcProps = {
     appId: 'c50b01cb915b497fbe5394ea8aef5b7b',
     token: token,
     channel: 'dev',
+    layout: 1,
+    activeSpeaker: true,
   };
-  //   const callbacks = {
-  //     EndCall: () => setVideoCall(false),
-  //   };
+  const callbacks = {
+    EndCall: () => setVideoCall(false),
+
+    UserJoined: (uid, info) => {
+      console.log('UserJoined', uid, info);
+    },
+    SwapVideo: (user) => console.log('SwapVideo', user),
+  };
+  const styleProps = {
+    theme: '#fff',
+    videoMode: {
+      max: 3,
+      min: 1,
+    },
+  };
 
   if (!videoCall)
     return (
@@ -62,7 +73,13 @@ const App = () => {
       </View>
     );
 
-  return <AgoraUIKit rtcProps={rtcProps} callbacks={callbacks} />;
+  return (
+    <AgoraUIKit
+      rtcProps={rtcProps}
+      callbacks={callbacks}
+      styleProps={styleProps}
+    />
+  );
 };
 
 const styles = StyleSheet.create({
