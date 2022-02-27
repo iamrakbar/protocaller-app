@@ -16,8 +16,8 @@ import RtcEngine, {
 } from 'react-native-agora';
 import { MaterialIcons } from '@expo/vector-icons';
 
-import requestCameraAndAudioPermission from './components/Permission';
-import styles from './components/Style';
+import requestCameraAndAudioPermission from '../../../components/Permission';
+import styles from '../../../components/Style';
 
 export default class App extends Component {
   _engine;
